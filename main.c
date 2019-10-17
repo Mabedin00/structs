@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <unistd.h>
 
 struct pokedex {char* pokemonName; int individualValue;};
 void describePokemon(struct pokedex some);// Check your Pokemon's stats
@@ -11,22 +12,23 @@ void nameChange(struct pokedex* pokemon, char* newName); //Change your Pokemon's
 int main(){
     struct pokedex pokemon0 = catchPokemon("Bulbasaur");
     describePokemon(pokemon0);
-    struct pokedex pokemon1 = catchPokemon("Pikachu");
-    describePokemon(pokemon1);
     cheatEngine(&pokemon0, 183);
     describePokemon(pokemon0);
+    sleep(1); //waits 1 second to create new IV
+    struct pokedex pokemon1 = catchPokemon("Pikachu");
+    describePokemon(pokemon1);
     nameChange(&pokemon1, "Charmander");
     describePokemon(pokemon1);
 }
 
 void describePokemon(struct pokedex some ){
-    srand(time(NULL));
     printf("Your %s has an IV of %d, that's %f%% \n", some.pokemonName,
                                                       some.individualValue,
                                                      (some.individualValue / 183.0)* 100);
 }
 
 struct pokedex catchPokemon(char* pokemonName){
+    srand(time(NULL));
     struct pokedex newPokemon;
     int rando = rand();
     strcpy(newPokemon.pokemonName, pokemonName);
@@ -36,7 +38,7 @@ struct pokedex catchPokemon(char* pokemonName){
 
 void cheatEngine(struct pokedex* pokemon, int desiredValue){
     pokemon->individualValue = desiredValue;
-    printf("Gratz, you cheated and got a %s with an IV of %d, that's %f%% \n", &pokemon->pokemonName,
+    printf("Gratz, you cheated and got a %s with an IV of %d, that's %f%% \n", pokemon->pokemonName,
                                                                           pokemon->individualValue,
                                                                           (desiredValue/ 183.0)* 100);
 }
