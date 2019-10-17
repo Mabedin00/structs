@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 struct pokedex {char* pokemonName; int individualValue;};
 void describePokemon(struct pokedex some);// Check your Pokemon's stats
@@ -21,6 +22,7 @@ int main(){
 }
 
 void describePokemon(struct pokedex some ){
+    srand(time(NULL));
     printf("Your %s has an IV of %d, that's %f%% \n", some.pokemonName,
                                                       some.individualValue,
                                                      (some.individualValue / 183.0)* 100);
@@ -28,8 +30,9 @@ void describePokemon(struct pokedex some ){
 
 struct pokedex catchPokemon(char* pokemonName){
     struct pokedex newPokemon;
+    int rando = rand();
     strcpy(newPokemon.pokemonName, pokemonName);
-    newPokemon.individualValue = rand() % 186;
+    newPokemon.individualValue = rando % 186;
     return newPokemon;
 }
 
