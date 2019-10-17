@@ -17,8 +17,6 @@ int main(){
     describePokemon(pokemon0);
     nameChange(&pokemon1, "Charmander");
     describePokemon(pokemon1);
-
-
 }
 
 void describePokemon(struct pokedex some ){
