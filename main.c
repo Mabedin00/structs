@@ -9,12 +9,13 @@ void describePokemon(struct pokedex some);// Check your Pokemon's stats
 struct pokedex catchPokemon(char* pokemonName); //Catch a pokemon, their IVs are random
 void cheatEngine(struct pokedex* pokemon, int desiredValue); //Change your pokemon's IVs
 void nameChange(struct pokedex* pokemon, char* newName); //Change your Pokemon's name
+
 int main(){
+    srand(time(NULL));
     struct pokedex pokemon0 = catchPokemon("Bulbasaur");
     describePokemon(pokemon0);
     cheatEngine(&pokemon0, 183);
     describePokemon(pokemon0);
-    sleep(1); //waits 1 second to create new IV
     struct pokedex pokemon1 = catchPokemon("Pikachu");
     describePokemon(pokemon1);
     nameChange(&pokemon1, "Charmander");
@@ -28,11 +29,9 @@ void describePokemon(struct pokedex some ){
 }
 
 struct pokedex catchPokemon(char* pokemonName){
-    srand(time(NULL));
     struct pokedex newPokemon;
-    int rando = rand();
     strcpy(newPokemon.pokemonName, pokemonName);
-    newPokemon.individualValue = rando % 186;
+    newPokemon.individualValue = rand() % 186;
     return newPokemon;
 }
 
